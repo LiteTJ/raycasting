@@ -2,12 +2,16 @@ class Player
 {
     #width;
     #pos;
+    #speed;
+    #rotation;
     #angle; //Angle clockwise from North in radians
 
     constructor(x, y, width)
     {
         this.#width = width;
         this.#pos = new Vector2D(x, y);
+        this.#speed = 3;
+        this.#rotation = 0.5/Math.PI;
         this.#angle = Math.PI * 0.8;
     }
 
@@ -46,6 +50,28 @@ class Player
     turn(angle)
     {
         this.#angle += angle;
+    }
+
+    tick(scale)
+    {
+        let speed = this.#speed * scale/24;
+
+        if(KEYS[37]) this.#pos.addX(-speed);
+        if(KEYS[38]) this.#pos.addY(-speed);
+        if(KEYS[39]) this.#pos.addX(speed);
+        if(KEYS[40]) this.#pos.addY(speed);
+
+        //A key
+        if(KEYS[65])
+        {
+            this.turn(-this.#rotation);
+        }
+
+        //D key
+        if(KEYS[68])
+        {
+            this.turn(this.#rotation);
+        }
     }
 
     draw(ctx)

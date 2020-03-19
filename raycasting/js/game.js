@@ -19,7 +19,7 @@ class Game
     tick()
     {
         /*------------------Business Logic------------------*/
-        this.player.turn(0.01);
+        this.player.tick(this.scale);
         this.raycaster.tick(canvas_b, ctx_b);
 
         /*-----------------------GUI------------------------*/

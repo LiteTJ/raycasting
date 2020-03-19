@@ -41,8 +41,10 @@ class Raycaster
 
             }
 
+            ray.calcMagnitude(this.player.angle);
             this.rays.push(ray);
         }
+
     }
 
     tick(canvas, ctx)
@@ -74,7 +76,7 @@ class Raycaster
             deltaX = canvas.width / this.#resolution;
 
         this.rays.forEach(ray => {
-            let length = canvas.height - ray.magnitude;
+            let length = canvas.height / ray.correctMagnitude * 20;
 
             ctx.save();
 

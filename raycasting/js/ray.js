@@ -4,6 +4,9 @@ class Ray
     #startPos;
     #currentPos;
 
+    #magnitude;
+    #correctMagnitude;
+
     constructor(x, y, dir)
     {
         this.#startPos = new Vector2D(x, y);
@@ -13,16 +16,10 @@ class Ray
 
     get startPosition() { return this.#startPos; }
     get position() { return this.#currentPos; }
+    get direction() { return this.#dir; }
 
-    get magnitude()
-    {
-        let start = this.#startPos.copy(),
-            end = this.#currentPos.copy();
-
-        start.subtract(end);
-
-        return start.magnitude;
-    }
+    get magnitude() { return this.#magnitude; }
+    get correctMagnitude() { return this.#correctMagnitude; }
 
     //Hitbox for the current position (point)
     get hitbox()
@@ -45,5 +42,16 @@ class Ray
             );
 
         this.#currentPos.add(offset);
+    }
+
+    calcMagnitude(playerAngle)
+    {
+        let start = this.#startPos.copy(),
+            end = this.#currentPos.copy();
+
+        start.subtract(end);
+
+        this.#magnitude = start.magnitude;
+        this.#correctMagnitude = this.#magnitude * Math.cos(playerAngle - this.#dir);
     }
 }

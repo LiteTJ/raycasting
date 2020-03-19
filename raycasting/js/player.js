@@ -18,6 +18,7 @@ class Player
     get width() { return this.#width; }
     get x() { return this.#pos.x; }
     get y() { return this.#pos.y; }
+    get angle() { return this.#angle; }
 
     get span()
     {
